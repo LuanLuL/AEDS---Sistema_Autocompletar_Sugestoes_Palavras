@@ -48,4 +48,5 @@ string Word::getValue() {
 
 void Word::setValue(string newValue) {
     this->value = newValue;
+    setKey(this->value);
 }

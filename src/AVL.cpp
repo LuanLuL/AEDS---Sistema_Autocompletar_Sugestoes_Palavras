@@ -42,31 +42,40 @@ bool AVL::isFull() {
 
 void AVL::insert(KnotAVL newKnot) {
     bool grow;
-    addKnot(newKnot, this->root, grow);
+    KnotAVL *dad = NULL;
+    addKnot(newKnot, this->root, dad, grow);
 }
 
-void AVL::addKnot(KnotAVL newKnot, KnotAVL *&current, bool &grow) {
+void AVL::addKnot(KnotAVL newKnot, KnotAVL *&current, KnotAVL *&dad, bool &grow) {
     if (current == NULL) {
-        current = new KnotAVL(newKnot.getElement().getFrequency(), newKnot.getElement().getValue());
         grow = true;
+        if (dad == NULL) {
+            current = new KnotAVL(newKnot.getElement().getFrequency(), newKnot.getElement().getValue());
+        } else {
+            current = new KnotAVL(newKnot.getElement().getFrequency(), newKnot.getElement().getValue());
+            if (newKnot.getElement().getKey() < dad->getElement().getKey()) {
+                dad->setLeft(current);
+            } else if (newKnot.getElement().getKey() > dad->getElement().getKey()) {
+                dad->setRight(current);
+            }
+        }
     } else if (newKnot.getElement().getKey() < current->getElement().getKey()) {
         KnotAVL *pointer = current->getLeft();
-        addKnot(newKnot, pointer, grow);
+        addKnot(newKnot, pointer, current, grow);
         if (grow) {
             current->setBalance(-1);
         }
     } else if (newKnot.getElement().getKey() > current->getElement().getKey()) {
         KnotAVL *pointer = current->getRight();
-        addKnot(newKnot, pointer, grow);
+        addKnot(newKnot, pointer, current, grow);
         if (grow) {
             current->setBalance(1);
         }
     } else {
         cout << "\n\n./BST::insert(int frequency, string item) !ERROR! => KnotBST's key already inserts in the BST\n\n";
     }
-    choseRotation(current);
-    if (grow && current->getBalance() == 0) {
-        grow = false;
+    if (!(current->getBalance() <= 1 && current->getBalance() >= -1)) {
+        choseRotation(current, dad, grow);
     }
 }
 
@@ -102,8 +111,8 @@ void AVL::searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &d
         } else {
             deleteKnotAVL(current, dad, decrease);
         }
-        choseRotation(current);
-        if (decrease && current->getBalance() != 0) {
+        choseRotation(current, dad, decrease);
+        if (current->getBalance() != 0) {
             decrease = false;
         }
     }
@@ -181,46 +190,56 @@ void AVL::posOrder(KnotAVL *current) {
     }
 }
 
-void AVL::leftRotation(KnotAVL *&current) {
+void AVL::leftRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble) {
     KnotAVL *newDad = current->getRight();
     current->setRight(newDad->getLeft());
     newDad->setLeft(current);
-    current = newDad;
+    if (dad == NULL) {
+        current = newDad;
+    } else if (gotDouble) {
+        dad->setLeft(newDad);
+    } else {
+        dad->setLeft(newDad);
+    }
 }
 
-void AVL::rightRotation(KnotAVL *&current) {
+void AVL::rightRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble) {
     KnotAVL *newDad = current->getLeft();
     current->setLeft(newDad->getRight());
     newDad->setRight(current);
-    current = newDad;
+    if (dad == NULL) {
+        current = newDad;
+    } else if (gotDouble) {
+        dad->setLeft(newDad);
+    } else {
+        dad->setRight(newDad);
+    }
 }
 
-void AVL::doubleLeftRotation(KnotAVL *&current) {
-    KnotAVL *sun = current->getLeft();
-    leftRotation(sun);
-    current->setLeft(sun);
-    rightRotation(current);
+void AVL::doubleLeftRotation(KnotAVL *&current, KnotAVL *&dad) {
+    KnotAVL *aux = current->getLeft();
+    leftRotation(aux, current, false);
+    rightRotation(current, dad, true);
 }
 
-void AVL::doubleRightRotation(KnotAVL *&current) {
-    KnotAVL *sun = current->getRight();
-    rightRotation(sun);
-    current->setRight(sun);
-    leftRotation(current);
+void AVL::doubleRightRotation(KnotAVL *&current, KnotAVL *&dad) {
+    KnotAVL *aux = current->getRight();
+    rightRotation(aux, current, false);
+    leftRotation(current, dad, true);
 }
 
-void AVL::choseRotation(KnotAVL *&current) {
+void AVL::choseRotation(KnotAVL *&current, KnotAVL *&dad, bool &grow) {
     KnotAVL *sun, *grandSun;
     if (current->getBalance() == -2) {     // rotação para a direita
         sun = current->getLeft();
         if (sun->getBalance() == -1) {     // simples
             current->setBalance(2);
             sun->setBalance(1);
-            rightRotation(current);
+            rightRotation(current, dad, false);
         } else if (sun->getBalance() == 0) {     // simples
             current->setBalance(1);
             sun->setBalance(1);
-            rightRotation(current);
+            rightRotation(current, dad, false);
         } else if (sun->getBalance() == 1) {     // dupla
             grandSun = sun->getRight();
             if (grandSun->getBalance() == -1) {
@@ -235,18 +254,19 @@ void AVL::choseRotation(KnotAVL *&current) {
                 sun->setBalance(-2);
                 grandSun->setBalance(-1);
             }
-            doubleLeftRotation(current);
+            grow = false;
+            doubleLeftRotation(current, dad);
         }
     } else if (current->getBalance() == 2) { // rotação para a esquerda
         sun = current->getRight();
         if (sun->getBalance() == 1) {     // simples
             current->setBalance(-2);
             sun->setBalance(-1);
-            leftRotation(current);
+            leftRotation(current, dad, false);
         } else if (sun->getBalance() == 0) {     // simples
             current->setBalance(-1);
             sun->setBalance(-1);
-            leftRotation(current);
+            leftRotation(current, dad, false);
         } else if (sun->getBalance() == -1) {     // dupla
             grandSun = sun->getLeft();
             if (grandSun->getBalance() == -1) {
@@ -261,7 +281,8 @@ void AVL::choseRotation(KnotAVL *&current) {
                 sun->setBalance(1);
                 grandSun->setBalance(-1);
             }
-            doubleRightRotation(current);
+            grow = false;
+            doubleRightRotation(current, dad);
         }
     }
 }

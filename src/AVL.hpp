@@ -19,7 +19,7 @@ public:
     bool isEmpty();
     bool isFull();
     void insert(KnotAVL newKnot);
-    void addKnot(KnotAVL newKnot, KnotAVL *&current, bool &grow);
+    void addKnot(KnotAVL newKnot, KnotAVL *&current, KnotAVL *&dad, bool &grow);
     KnotAVL *search(string item);
     void searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &decrease);
     void remove(string item);
@@ -28,11 +28,11 @@ public:
     void preOrder(KnotAVL *current);
     void centralOrder(KnotAVL *current);
     void posOrder(KnotAVL *current);
-    void leftRotation(KnotAVL *&current);
-    void rightRotation(KnotAVL *&current);
-    void doubleLeftRotation(KnotAVL *&current);
-    void doubleRightRotation(KnotAVL *&current);
-    void choseRotation(KnotAVL *&current);
+    void leftRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble);
+    void rightRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble);
+    void doubleLeftRotation(KnotAVL *&current, KnotAVL *&dad);
+    void doubleRightRotation(KnotAVL *&current, KnotAVL *&dad);
+    void choseRotation(KnotAVL *&current, KnotAVL *&dad, bool &grow);
 };
 
 #endif

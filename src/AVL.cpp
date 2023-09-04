@@ -111,7 +111,9 @@ void AVL::searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &d
         } else {
             deleteKnotAVL(current, dad, decrease);
         }
-        choseRotation(current, dad, decrease);
+        if (current->getBalance() > 1 || current->getBalance() < -1) {
+            choseRotation(current, dad, decrease);
+        }
         if (current->getBalance() != 0) {
             decrease = false;
         }
@@ -142,18 +144,22 @@ void AVL::deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease) {
         if (current == dad->getLeft()) {
             dad->setLeft(current->getRight());
             delete(current);
+            current->clearBalance();
         } else {
             dad->setRight(current->getRight());
             delete(current);
+            current->clearBalance();
         }
         decrease = true;
     } else if (current->getRight() == NULL) {
         if (current == dad->getLeft()) {
             dad->setLeft(current->getLeft());
             delete(current);
+            current->clearBalance();
         } else {
             dad->setRight(current->getLeft());
             delete(current);
+            current->clearBalance();
         }
         decrease = true;
     } else {

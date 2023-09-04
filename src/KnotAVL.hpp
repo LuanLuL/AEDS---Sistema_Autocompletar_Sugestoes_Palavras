@@ -24,6 +24,7 @@ public:
     void setLeft(KnotAVL *newLeft);
     KnotAVL *getRight();
     void setRight(KnotAVL *newRight);
+    void clearBalance();
 };
 
 #endif

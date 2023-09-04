@@ -54,3 +54,7 @@ KnotAVL *KnotAVL::getRight() {
 void KnotAVL::setRight(KnotAVL *newRight) {
     this->right = newRight;
 }
+
+void KnotAVL::clearBalance() {
+    this->balance = 0;
+}

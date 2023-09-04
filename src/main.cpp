@@ -12,12 +12,20 @@ int main() {
 	KnotAVL palavra3(12, "antes");
 	KnotAVL palavra6(12, "mesm");
 	KnotAVL palavra7(12, "mesd");
+	KnotAVL palavra8(12, "zzzz");
 
 	tree.insert(palavra1);
-	tree.insert(palavra2); 
+	tree.insert(palavra2);
 	tree.insert(palavra3);
 	tree.insert(palavra6);
 	tree.insert(palavra7);
+	tree.insert(palavra8);
+
+	cout << "\n------------------------\n\nKEY \\ WORD \\ FREQUENCY \n\n";
+	tree.centralOrder(tree.getRoot());
+	cout << "\n------------------------\n\n";
+
+	tree.remove("tudo");
 
 	cout << "\n------------------------\n\nKEY \\ WORD \\ FREQUENCY \n\n";
 	tree.centralOrder(tree.getRoot());

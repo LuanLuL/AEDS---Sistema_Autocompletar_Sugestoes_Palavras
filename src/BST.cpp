@@ -40,12 +40,12 @@ bool BST::isFull() {
   }
 }
 
-void BST::insert(int frequency, string item) {
+void BST::insert(KnotBST item) {
   try {
     if (isFull()) {
       throw "./BST::insert(int frequency, string item) !ERROR! => System doesn't has enough memory";
     }
-    KnotBST *newKnotBST = new KnotBST(frequency, item);
+    KnotBST *newKnotBST = &item;
     if (isEmpty()) {
       this->root = newKnotBST;
     } else {

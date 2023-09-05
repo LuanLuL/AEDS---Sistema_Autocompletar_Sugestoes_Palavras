@@ -18,7 +18,7 @@ public:
 	void deleteBTS(KnotBST *current);
 	bool isEmpty();
 	bool isFull();
-	void insert(int frequency, string item);
+	void insert(KnotBST item);
 	KnotBST *search(string item);
 	void searchToRemove(Word lookFor, KnotBST *&current, KnotBST *&dad);
 	void remove(string item);

@@ -1,0 +1,116 @@
+_______________________________________________________
+
+Palavra pesquisada: 'filosofia'
+
+INPUT 1
+Frequência palavra pesquisada: '19'
+Palavras mais relevantes: '[teoria, sujeito, mundo, condição, modo, priori, sistema, pensamento, sobre, segundo, sentido, imanente, vista, É, wittgenstein, pode, quanto, maneira, assim, virtual]
+
+
+INPUT 2
+Frequência palavra pesquisada: '19'
+Palavras mais relevantes: '[teoria, sujeito, mundo, priori, condição, modo, sistema, pensamento, segundo, sobre, sentido, imanente, princípio, pode, possível, É, wittgenstein, vista, maneira, respeito]
+
+
+INPUT 3
+Frequência palavra pesquisada: '0'
+
+
+INPUT 4
+Frequência palavra pesquisada: '0'
+
+
+INPUT 5
+Frequência palavra pesquisada: '0'
+
+
+INPUT 6
+Frequência palavra pesquisada: '0'
+
+_______________________________________________________
+
+Palavra pesquisada: 'globalização'
+
+INPUT 1
+Frequência palavra pesquisada: '0'
+
+
+INPUT 2
+Frequência palavra pesquisada: '0'
+
+
+INPUT 3
+Frequência palavra pesquisada: '0'
+
+
+INPUT 4
+Frequência palavra pesquisada: '0'
+
+
+INPUT 5
+Frequência palavra pesquisada: '0'
+
+
+INPUT 6
+Frequência palavra pesquisada: '0'
+
+_______________________________________________________
+
+Palavra pesquisada: 'política'
+
+INPUT 1
+Frequência palavra pesquisada: '19'
+Palavras mais relevantes: '[teoria, sujeito, mundo, condição, modo, priori, sistema, pensamento, sobre, segundo, sentido, imanente, vista, É, wittgenstein, pode, quanto, maneira, assim, virtual]
+
+
+INPUT 2
+Frequência palavra pesquisada: '19'
+Palavras mais relevantes: '[teoria, sujeito, mundo, priori, condição, modo, sistema, pensamento, segundo, sobre, sentido, imanente, princípio, pode, possível, É, wittgenstein, vista, maneira, respeito]
+
+
+INPUT 3
+Frequência palavra pesquisada: '0'
+
+
+INPUT 4
+Frequência palavra pesquisada: '198'
+Palavras mais relevantes: '[político, políticas, saúde, melhoria, assim, atual, sentido, eleitores, metas, processo, impacto, importante, formação, determinação, modo, podemos, ainda, geral, sistema, É]
+
+
+INPUT 5
+Frequência palavra pesquisada: '0'
+
+
+INPUT 6
+Frequência palavra pesquisada: '0'
+
+_______________________________________________________
+
+Palavra pesquisada: 'ti'
+
+INPUT 1
+Frequência palavra pesquisada: '0'
+
+
+INPUT 2
+Frequência palavra pesquisada: '0'
+
+
+INPUT 3
+Frequência palavra pesquisada: '0'
+
+
+INPUT 4
+Frequência palavra pesquisada: '0'
+
+
+INPUT 5
+Frequência palavra pesquisada: '201'
+Palavras mais relevantes: '[utilização, segurança, implantação, informações, dados, novas, desenvolvimento, melhor, aumento, impacto, sistema, assim, hardware, tempo, envolvidos, rede, causa, software, problemas, necessidade]
+
+
+INPUT 6
+Frequência palavra pesquisada: '201'
+Palavras mais relevantes: '[utilização, segurança, implantação, assim, dados, melhor, aumento, hardware, informações, tempo, desenvolvimento, sistema, impacto, novas, problemas, links, existem, software, rede, uso]
+
+_______________________________________________________

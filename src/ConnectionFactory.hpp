@@ -6,6 +6,10 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include "Word.hpp"
+#include "AVL.hpp"
+#include "BST.hpp"
+#include "HBT.hpp"
 
 using namespace std;
 
@@ -26,6 +30,7 @@ public:
     bool isStopWord(string palavra);
     vector<string> getFileSearch(string word);
     bool isThereWord(ifstream &dataset, string word);
+    void tidyOutput(unordered_map<string, int> *hash, short int size, short int output);
 };
 
 #endif

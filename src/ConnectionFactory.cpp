@@ -7,6 +7,7 @@ ConnectionFactory::ConnectionFactory() {
         this->stopWords.push_back(stopWord);
     }
     closeConnection(fileStopWords);
+    remove("dataset/output.txt");
 }
 
 ConnectionFactory::~ConnectionFactory() {/*...*/ }
@@ -43,7 +44,7 @@ void ConnectionFactory::closeConnection(ofstream &dataset) {
 
 ofstream ConnectionFactory::getConnectionOf(string path) {
     try {
-        ofstream dataset("dataset/" + path);
+        ofstream dataset("dataset/" + path, ios::app);
         if (!dataset) {
             throw "./ConnectionFactory::getConnectionOf(string path) !ERROR! => path didn't find on directory";
         }
@@ -57,6 +58,7 @@ ofstream ConnectionFactory::getConnectionOf(string path) {
 
 void ConnectionFactory::select(ifstream &dataset, unordered_map<string, int> *hash) {
     string line;
+    dataset.seekg(0);
     while (getline(dataset, line)) {
         if (line.empty()) {
             /*doesn't do nothing*/
@@ -151,4 +153,12 @@ bool ConnectionFactory::isThereWord(ifstream &dataset, string word) {
         }
     }
     return false;
+}
+
+void ConnectionFactory::tidyOutput(unordered_map<string, int> *hash, short int size, short int) {
+    ofstream fileOut = getConnectionOf("output.txt");
+    HBT huffmanTree(hash);
+    string output = "";
+    fileOut << output;
+    closeConnection(fileOut);
 }

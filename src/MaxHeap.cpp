@@ -1,35 +1,35 @@
-#include "Heap.hpp"
+#include "MaxHeap.hpp"
 
-Heap::Heap(unordered_map<string, int> *hash) {
+MaxHeap::MaxHeap(unordered_map<string, int> *hash) {
     this->heap = new pair<string, int>[(*hash).size()];
     this->wordsNumber = 0;
     for (const auto &elemento : (*hash)) {
         insert(elemento.first, elemento.second);
     }
+    hash->clear();
 }
 
-Heap::~Heap() {/*...*/ }
+MaxHeap::~MaxHeap() {/*...*/ }
 
-int Heap::getWordsNumber() {
+int MaxHeap::getWordsNumber() {
     return this->wordsNumber;
 }
 
-void Heap::setWordsNumber(int newWordsNumber) {
+void MaxHeap::setWordsNumber(int newWordsNumber) {
     this->wordsNumber = newWordsNumber;
 }
 
-void Heap::freeMemory() {
+void MaxHeap::freeMemory() {
     delete[] heap;
 }
 
-bool Heap::isEmpty() {
+bool MaxHeap::isEmpty() {
     return (this->wordsNumber == 0);
 }
 
-void Heap::fixUp(int index) {
+void MaxHeap::fixUp(int index) {
     int indexDad = (int)((index - 1) / 2);
     pair<string, int> swap;
-    // Is there a father less than his son?
     if (indexDad >= 0 && this->heap[index].second > this->heap[indexDad].second) {
         swap = this->heap[index];
         this->heap[index] = this->heap[indexDad];
@@ -38,16 +38,13 @@ void Heap::fixUp(int index) {
     }
 }
 
-void Heap::fixDown(int index) {
+void MaxHeap::fixDown(int index) {
     int indexSon = ((2 * index) + 1);
     pair<string, int> swap;
-    // How many sons does have?
     if (indexSon < this->wordsNumber && indexSon < this->wordsNumber - 1) {
-        // Two children. so which son is bigger than his father?
         if (this->heap[indexSon].second < this->heap[indexSon + 1].second) {
             indexSon++;
         }
-        // Is there a son more bigger than his father?
         if (this->heap[indexSon].second > this->heap[index].second) {
             swap = this->heap[index];
             this->heap[index] = this->heap[indexSon];
@@ -57,17 +54,17 @@ void Heap::fixDown(int index) {
     }
 }
 
-void Heap::insert(string text, int frequency) {
+void MaxHeap::insert(string text, int frequency) {
     this->wordsNumber++;
     pair<string, int> element(text, frequency);
     this->heap[this->wordsNumber - 1] = element;
     fixUp(this->wordsNumber - 1);
 }
 
-void Heap::remove() {
+void MaxHeap::remove() {
     try {
         if (isEmpty()) {
-            throw "./Heap::insert(string text, int frequency) !ERROR! => The heap is empty";
+            throw "./MaxHeap::insert(string text, int frequency) !ERROR! => The heap is empty";
         }
         pair<string, int> aux;
         this->heap[0] = this->heap[this->wordsNumber - 1];
@@ -80,8 +77,8 @@ void Heap::remove() {
     }
 }
 
-void Heap::print(int K) {
-    cout << "\n---------- TOP " << K << " itens ----------\n\n";
+void MaxHeap::print(int K) {
+    cout << "\n---------- TOP " << K << " itens MAX HEAP ----------\n\n";
     cout << "0\t" "WORD\\FREQUENCY\n" << endl;
     for (short int i = 0; i < K; i++) {
         cout << i + 1 << "\t" << this->heap[i].first << "\\" << this->heap[i].second << endl;
@@ -89,18 +86,16 @@ void Heap::print(int K) {
     cout << "\n----------------------------------\n";
 }
 
-Word *Heap::getWords(int amount, string searchWord) {
-    Word *array = new Word[amount];
-    Word aux;
-    for (int i = 0; i < amount; i++) {
+unordered_map<string, int> MaxHeap::getWords(short int amount, string searchWord) {
+    unordered_map<string, int> returnWords;
+    for (short int i = 0; i < amount; i++) {
         if (this->heap[0].first == searchWord) {
             i--;
         } else {
-            aux.setValue(this->heap[0].first);
-            aux.setFrequency(this->heap[0].second);
-            array[i] = aux;
+            returnWords[this->heap[0].first] = this->heap[0].second;
         }
         remove();
     }
-    return array;
+    freeMemory();
+    return returnWords;
 }

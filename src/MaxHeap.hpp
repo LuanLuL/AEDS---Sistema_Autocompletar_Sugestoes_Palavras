@@ -1,5 +1,5 @@
-#ifndef __HEAP_HPP
-#define __HEAP_HPP
+#ifndef __MAXHEAP_HPP
+#define __MAXHEAP_HPP
 
 #include <iostream>
 #include <string>
@@ -7,13 +7,13 @@
 #include "Word.hpp"
 using namespace std;
 
-class Heap {
+class MaxHeap {
 private:
     int wordsNumber;
     pair<string, int> *heap;
 public:
-    Heap(unordered_map<string, int> *hash);
-    ~Heap();
+    MaxHeap(unordered_map<string, int> *hash);
+    ~MaxHeap();
     int getWordsNumber();
     void setWordsNumber(int newWordsNumber);
     void freeMemory();
@@ -23,7 +23,7 @@ public:
     void insert(string text, int frequency);
     void remove();
     void print(int K);
-    Word *getWords(int amount, string searchWord);
+    unordered_map<string, int> getWords(short int amount, string searchWord);
 };
 
 #endif

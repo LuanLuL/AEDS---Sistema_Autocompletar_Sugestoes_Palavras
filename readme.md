@@ -1,12 +1,55 @@
  <section>   
-    <h1>📢 AEDS: Caminho Guloso</h1>   
+    <h1>📢 AEDS: Sistema de sugestão de palavras</h1>   
     <p>
-        Criado em setembro de 2023, o <strong>Sistema de autocompletar palavras</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://www.linkedin.com/in/michelpiressilva/?originalSubdomain=br" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>).
+        Criado em setembro de 2023, o projeto de<strong> sugestão de palavras</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://www.linkedin.com/in/michelpiressilva/?originalSubdomain=br" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>).
+    </p>
+    <p>
+        Vale ressaltar que o sistema de sugestão de palavras é uma continuação do projeto <a href="https://github.com/LuanLuL/AEDS---Top_K_Itens" target="_blank">Top K itens</a>, o qual tem a capacidade de contar as palavras mais frequentes em um texto. Portanto, o sistema de<strong> sugestão de palavras</strong> segue as diretrizes do projeto passado.
     </p>
 </section>
 <section>
-    <h2>🛠 Problemática</h2>
-
+    <h2>🛠 Objetivo</h2>
+    <p>
+        O objetivo deste projeto é criar uma ferramenta ou programa que, dada uma palavra específica (denominada "busca") e um texto como entrada, seja capaz de gerar sugestões para a próxima palavra que poderia seguir a "busca" com base na análise das palavras mais recorrentes no texto.
+    </p>
+    <p>
+        A utilidade desse projeto pode estar relacionada a várias aplicações, como correção automática de texto, previsão de palavras em campos de busca, sugestão de palavras em aplicativos de mensagens, entre outras. O projeto visa melhorar a experiência do usuário ao ajudar na seleção da próxima palavra em uma frase ou texto, tornando-a mais rápida, precisa e relevante.
+    </p>
+</section>
+<section>
+    <h2>🌐 Coleta de dados</h2>
+    <p>
+        Nesta seção, é descrito o processo de aquisição de dados a partir de um arquivo denominado "pesquisar.txt". Esse arquivo contém um catálogo de palavras-chave que servirão como base para a obtenção de sugestões relacionadas em diversos arquivos de texto, conforme o interesse do usuário.
+    </p>
+    <p>
+        O sistema permite ao usuário especificar uma lista de palavras-chave no arquivo "pesquisar.txt". Nesse sentido, cada palavra a ser buscada deve ser colocada em uma linha separada. Feito isso, o software consiguirá coletar cada palavra-chave e armazena-la temporariamente em uma estrutura de dados interna.
+    </p>
+    <p>
+        No que se refere à inserção de inputs de entrada, segue-se a mesma lógica adotada no projeto anterior (<a href="https://github.com/LuanLuL/AEDS---Top_K_Itens" target="_blank">Top K itens</a>).
+    </p>
+</section>
+<section>
+    <h2>🚧 Implementação do Sistema</h2>
+    <p>
+        Após a leitura do arquivo "pesquisar.txt", o sistema está pronto para iniciar o processo de busca das palavras-chave especificadas. Para cada palavra-chave presente na lista, o sistema executa um conjunto de ações bem definidas.
+    </p>
+    <p>
+        Primeiramente, o sistema abre cada um dos arquivos de entrada disponíveis para busca. Cada arquivo representa uma fonte de texto onde as palavras-chave serão pesquisadas. Por acaso, se uma palavra-chave não existir em um arquivo específico, o sistema pula automaticamente para o próximo arquivo de entrada, economizando tempo e recursos de processamento. 
+    </p>
+    <p>
+        No entanto, quando uma palavra-chave é encontrada em um arquivo de entrada, o sistema executa a etapa de busca das K palavras mais relevantes dentro do contexto. Esta etapa implica na execução da tokenização do texto, onde as palavras são divididas em unidades individuais, e posterior armazenamento dessas palavras em uma estrutura de dados conhecida como MaxHeap. O objetivo principal desse processo é contar e registrar as frequências de ocorrência de cada palavra no texto analisado.
+    </p>
+    <p>
+         Tendo identificado as K palavras mais relevantes estas são armazenadas em três diferentes estruturas de dados
+    </p>
+    <div>
+       <h3>⚙ Estuturas de dados</h3>
+        <p>
+        </p>
+    </div>
+    <p>
+         Por fim, após completar o processo de busca, análise e armazenamento de palavras de sugestão, o sistema exibe os resultados no output.
+    </p>
 </section>
 <section>
     <h2>🎞 Processamento</h2>

@@ -31,24 +31,66 @@
 <section>
     <h2>🚧 Implementação do Sistema</h2>
     <p>
-        Após a leitura do arquivo "pesquisar.txt", o sistema está pronto para iniciar o processo de busca das palavras-chave especificadas. Para cada palavra-chave presente na lista, o sistema executa um conjunto de ações bem definidas.
+        Após a leitura do arquivo "pesquisar.txt", o sistema está pronto para iniciar o processo de busca das palavras-chave especificadas e suas respectivas sujestões. Para cada palavra-chave presente na lista, o sistema executa um conjunto de ações bem definidas.
     </p>
     <p>
-        Primeiramente, o sistema abre cada um dos arquivos de entrada disponíveis para busca. Cada arquivo representa uma fonte de texto onde as palavras-chave serão pesquisadas. Por acaso, se uma palavra-chave não existir em um arquivo específico, o sistema pula automaticamente para o próximo arquivo de entrada, economizando tempo e recursos de processamento. 
+        Primeiramente, o programa abre cada um dos inputs de entrada disponíveis para busca. No caso de uma palavra-chave não existir em um arquivo específico, o sistema pula automaticamente para o próximo input de entrada, economizando tempo e recursos de processamento. 
     </p>
     <p>
-        No entanto, quando uma palavra-chave é encontrada em um arquivo de entrada, o sistema executa a etapa de busca das K palavras mais relevantes dentro do contexto. Esta etapa implica na execução da tokenização do texto, onde as palavras são divididas em unidades individuais, e posterior armazenamento dessas palavras em uma estrutura de dados conhecida como MaxHeap. O objetivo principal desse processo é contar e registrar as frequências de ocorrência de cada palavra no texto analisado.
+        No entanto, quando uma palavra-chave é encontrada em um arquivo de entrada, o sistema executa a etapa de busca das K palavras mais relevantes dentro do contexto. Este processo implica na execução da tokenização do texto, onde as palavras são divididas em unidades individuais, e posteriormente armazenadas em uma estrutura de dados conhecida como MaxHeap. Isso se deve a necesseidade de contar e registrar as frequências de ocorrência de cada palavra no texto analisado.
     </p>
     <p>
-         Tendo identificado as K palavras mais relevantes estas são armazenadas em três diferentes estruturas de dados
+         Tendo identificado as K palavras mais relevantes estas são armazenadas em três diferentes tipos de árvores binária e por fim, após completar o processo de busca, análise e armazenamento de palavras de sugestão, o sistema cria um arquivo de saida chamado "output.txt".
     </p>
-    <div>
-       <h3>⚙ Estuturas de dados</h3>
-        <p>
-        </p>
-    </div>
+</section>
+<section>
+    <h2>⚙ Estuturas de dados</h2>
     <p>
-         Por fim, após completar o processo de busca, análise e armazenamento de palavras de sugestão, o sistema exibe os resultados no output.
+        As árvores são estruturas de dados fundamentais em ciência da computação, e diferentes tipos de árvores são usados em uma variedade de aplicações. Nesta seção, é apresentado os três tipos  de árvores empregadas nesse software e entender suas características, uso e diferenças.
+    </p>
+    <ul>
+        <li>
+            <p>
+                <h3>Árvore Binária de busca: </h3> É uma representação hierárquica que é amplamente empregada para a organização e armazenamento eficiente de dados. Ela permite realizar operações de busca, inserção e exclusão em um tempo médio logarítmico, representado como "<i><strong>O(log n)</i></strong>," onde "n" corresponde ao número de nós presentes na árvore (Cormen, 2012).
+            </p>
+            <p>
+                A BST (Binary Search Tree), ou "Árvore de Busca Binária," é uma estrutura de dados hierárquica específica, na qual cada nó possui no máximo dois filhos: um à esquerda (que contém valores menores) e outro à direita (que contém valores maiores). Essa propriedade possibilita uma eficácia notável nas operações de busca. Inicia-se a busca a partir do nó raiz, comparando o valor desejado com o valor do nó atual. Isso permite a realização da renomada busca binária, na qual metade dos dados é descartada a cada iteração (Wikipedia, 2023).
+            </p>
+            <p>
+                Todavia, é importante observar que as BST podem, em determinadas circunstâncias, se tornar desequilibradas, resultando em uma árvore com altura linear, representada como "<i><strong>O(n)</i></strong>," onde "n" corresponde ao número de nós na árvore (Cormen, 2012). Em tais casos, é mais apropriado optar por estruturas balanceadas, como as Árvores AVL. Essas árvores são projetadas para garantir que a altura da árvore permaneça logarítmica, preservando, assim, a eficiência das operações.
+            </p>
+        </li>
+        <li>
+            <p>
+                <h3>Árvore Adelson-Velsky e Landis: </h3> Também conhecida como AVL, é uma ávore binária de busca, seu diferencial é a capacidade de manter-se automaticamente balanceada. Isso significa que, após cada inserção ou exclusão de um nó, a árvore verifica e ajusta seu balanceamento, garantindo que a altura da subárvore esquerda e da subárvore direita de qualquer nó difira em, no máximo, uma unidade.
+            </p>
+            <p>
+                Com o propósito de manter o equilíbrio, a Árvore AVL, quando desbalanceada, implementa quatro operações distintas durante as fases de inserção e remoção de elementos. Essas operações são as seguintes: Rotação à Esquerda Simples, Rotação à Direita Simples, Rotação à Esquerda-Direita Dupla e Rotação à Direita-Esquerda Dupla.
+            </p>
+            <p>
+                Essas operações de rotação são projetadas para manter a propriedade de balanceamento das Árvores AVL, garantindo um desempenho consistente em operações de busca, inserção e exclusão. Apesar disso, essa eficiência vem com a desvantagem de que as rotações, usadas para manter o balanceamento, podem ser computacionalmente custosas em comparação com árvores binárias de busca simples, e a estrutura requer armazenamento adicional para as alturas dos nós, o que pode aumentar o uso de memória em comparação com estruturas não balanceadas (Cormen, 2012).
+            </p>
+        </li>
+        <li>
+            <p>
+                <h3>Árvore de Huffman: </h3> Sendo uma árvore binária, a árvore de Huffman é altamente eficiente na compactação de dados, especialmente quando há símbolos com diferentes frequências de ocorrência. Isso a torna ideal para aplicações de compressão, como em formatos de arquivos compactados (por exemplo, ZIP) e transmissão de dados em redes.
+            </p>
+            <p>
+                Sua construção segue um processo iterativo no qual os dois nós com as menores frequências são combinados em um novo nó pai cuja frequência é a soma das frequências dos nós filhos. Esse procedimento é repetido até que reste apenas um nó, que se torna a raiz da Árvore de Huffman.
+            </p>
+            <p>
+                Esse tipo de ávore não é uma estrutura de dados adequada para busca eficiente de dados, ao contrário das Árvores de Busca Binária (BST) e Árvores AVL, que são projetadas especificamente para esse propósito. Portanto, não é uma escolha adequada quando a busca de dados é uma consideração importante.
+            </p>
+        </li>
+    </ul>
+</section>
+<section>
+        <h2>🔠 Objeto Word</h2>
+</section>
+<section>
+    <h2>📩 Saida de dados</h2>
+    <p>
+        saida
     </p>
 </section>
 <section>
@@ -63,7 +105,9 @@
             </p>
         </li>
         <li>
-            <p>O WSL é um método para se executar o Sistema Operaciona Linux dentro do Windows de forma muito facil. Essa platoforma se torna essencial para o desenvovimento em ambiente GNU Linux, evitando tarefas como a intalação de maquinas vituais, criação de dual booting no computador pessoal e entre outras coisas. Além disso, existem diversas vantagens como rodar programas em conjunto e compartihamento de localhost. Segue em anexo um  tutorial de download do WSL2 — <a href="https://youtu.be/hd6lxt5iVsg" target="_blank">Tutorial WSL2</a>.</p>
+            <p>
+                O WSL é um método para se executar o Sistema Operaciona Linux dentro do Windows de forma muito facil. Essa platoforma se torna essencial para o desenvovimento em ambiente GNU Linux, evitando tarefas como a intalação de maquinas vituais, criação de dual booting no computador pessoal e entre outras coisas. Além disso, existem diversas vantagens como rodar programas em conjunto e compartihamento de localhost. Segue em anexo um  tutorial de download do WSL2 — <a href="https://youtu.be/hd6lxt5iVsg" target="_blank">Tutorial WSL2</a>.
+            </p>
         </li>
     </ul>
     <p>
@@ -96,6 +140,18 @@
             <b>Tabela 1:</b> Comandos úteis para compilar e executar o programa de computador
         </p>
     </div>
+</section>
+<section>
+    <h2>📚 Referências</h2>
+    <p>
+        Knuth, Donald E. Fundamental Algorithms. In: The Art of Computer Programming, Vol. 1: Fundamental Algorithms. 3rd ed. Boston: Addison-Wesley, 1997. p. 10-50.
+    </p>
+    <p>
+        Cormen, Thomas H. et al. Algoritmos: Teoria e Prática. 3ª ed. Rio de Janeiro: Elsevier, 2012.
+    </p>
+    <p>
+        Wikipedia. Binary search tree. Disponível em: <a href="https://en.wikipedia.org/wiki/Binary_search_tree">Wikepedia/Binary_search_tree</a>. Acesso em 10 de setembro de 2023
+    </p>
 </section>
 <section>
     <hr size="0.5">

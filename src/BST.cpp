@@ -4,6 +4,14 @@ BST::BST() {
   this->root = NULL;
 }
 
+BST::BST(unordered_map<string, int> &hash) {
+  this->root = NULL;
+  for (const auto &element : hash) {
+    KnotBST newElement(element.second, element.first);
+    insert(newElement);
+  }
+}
+
 BST::~BST() {
   deleteBTS(this->root);
 }
@@ -20,7 +28,7 @@ void BST::deleteBTS(KnotBST *current) {
   if (current != NULL) {
     deleteBTS(current->getLeft());
     deleteBTS(current->getRight());
-    current = nullptr;
+    current = NULL;
     delete(current);
   }
 }
@@ -29,50 +37,31 @@ bool BST::isEmpty() {
   return this->root == NULL;
 }
 
-bool BST::isFull() {
-  try {
-    KnotBST *ponteiro = new KnotBST;
-    delete(ponteiro);
-    return false;
-  }
-  catch (bad_alloc exception) {
-    return true;
-  }
-}
-
 void BST::insert(KnotBST item) {
-  try {
-    if (isFull()) {
-      throw "./BST::insert(int frequency, string item) !ERROR! => System doesn't has enough memory";
-    }
-    KnotBST *newKnotBST = &item;
-    if (isEmpty()) {
-      this->root = newKnotBST;
-    } else {
-      KnotBST *aux = this->root;
-      while (aux != NULL) {
-        if (newKnotBST->getElement().getKey() < aux->getElement().getKey()) {
-          if (aux->getLeft() == NULL) {
-            aux->setLeft(newKnotBST);
-            break;
-          } else {
-            aux = aux->getLeft();
-          }
-        } else if (newKnotBST->getElement().getKey() > aux->getElement().getKey()) {
-          if (aux->getRight() == NULL) {
-            aux->setRight(newKnotBST);
-            break;
-          } else {
-            aux = aux->getRight();
-          }
+  KnotBST *newKnotBST = new KnotBST(item.getElement().getFrequency(), item.getElement().getValue());
+  if (isEmpty()) {
+    this->root = newKnotBST;
+  } else {
+    KnotBST *aux = this->root;
+    while (aux != NULL) {
+      if (newKnotBST->getElement().getKey() < aux->getElement().getKey()) {
+        if (aux->getLeft() == NULL) {
+          aux->setLeft(newKnotBST);
+          break;
         } else {
-          throw "./BST::insert(int frequency, string item) !ERROR! => KnotBST's key already inserts in the BST";
+          aux = aux->getLeft();
         }
+      } else if (newKnotBST->getElement().getKey() > aux->getElement().getKey()) {
+        if (aux->getRight() == NULL) {
+          aux->setRight(newKnotBST);
+          break;
+        } else {
+          aux = aux->getRight();
+        }
+      } else {
+        throw "./BST::insert(int frequency, string item) !ERROR! => KnotBST's key already inserts in the BST";
       }
     }
-  }
-  catch (const char *msg) {
-    cerr << msg << endl;
   }
 }
 
@@ -147,26 +136,26 @@ void BST::deleteKnotBST(KnotBST *&current, KnotBST *&dad) {
   }
 }
 
-void BST::preOrder(KnotBST *current) {
+void BST::preOrder(KnotBST *current, string &output) {
   if (current != NULL) {
-    cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
-    preOrder(current->getLeft());
-    preOrder(current->getRight());
+    output = output + current->getElement().getValue() + ", ";
+    preOrder(current->getLeft(), output);
+    preOrder(current->getRight(), output);
   }
 }
 
-void BST::centralOrder(KnotBST *current) {
+void BST::centralOrder(KnotBST *current, string &output) {
   if (current != NULL) {
-    centralOrder(current->getLeft());
-    cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
-    centralOrder(current->getRight());
+    centralOrder(current->getLeft(), output);
+    output = output + current->getElement().getValue() + ", ";
+    centralOrder(current->getRight(), output);
   }
 }
 
-void BST::posOrder(KnotBST *current) {
+void BST::posOrder(KnotBST *current, string &output) {
   if (current != NULL) {
-    posOrder(current->getLeft());
-    posOrder(current->getRight());
-    cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
+    posOrder(current->getLeft(), output);
+    posOrder(current->getRight(), output);
+    output = output + current->getElement().getValue() + ", ";
   }
 }

@@ -14,21 +14,22 @@ private:
     int size;
 public:
     HBT();
-    HBT(unordered_map<string, int> *hash);
+    HBT(unordered_map<string, int> &hash);
     ~HBT();
     KnotHBT *getRoot();
     void setRoot(KnotHBT *newRoot);
     int getSize();
     void setSize(int newSize);
     bool isEmpty();
-    void createList(unordered_map<string, int> *hash);
+    bool isLeaf(KnotHBT *current);
+    void createList(unordered_map<string, int> &hash);
     void printList();
     void insertList(KnotHBT *&item);
     KnotHBT *removeList();
     void makeTree();
-    void preOrder(KnotHBT *current);
-    void centralOrder(KnotHBT *current);
-    void posOrder(KnotHBT *current);
+    void preOrder(KnotHBT *current, string &output);
+    void centralOrder(KnotHBT *current, string &output);
+    void posOrder(KnotHBT *current, string &output);
 };
 
 #endif

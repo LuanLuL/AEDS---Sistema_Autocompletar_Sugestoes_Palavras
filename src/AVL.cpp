@@ -4,6 +4,14 @@ AVL::AVL() {
     this->root = NULL;
 }
 
+AVL::AVL(unordered_map<string, int> &hash) {
+    this->root = NULL;
+    for (const auto &element : hash) {
+        KnotAVL newElement(element.second, element.first);
+        insert(newElement);
+    }
+}
+
 AVL::~AVL() {
     deleteBTS(this->root);
 }
@@ -27,17 +35,6 @@ void AVL::deleteBTS(KnotAVL *current) {
 
 bool AVL::isEmpty() {
     return this->root == NULL;
-}
-
-bool AVL::isFull() {
-    try {
-        KnotAVL *ponteiro = new KnotAVL;
-        delete(ponteiro);
-        return false;
-    }
-    catch (bad_alloc exception) {
-        return true;
-    }
 }
 
 void AVL::insert(KnotAVL newKnot) {
@@ -65,17 +62,26 @@ void AVL::addKnot(KnotAVL newKnot, KnotAVL *&current, KnotAVL *&dad, bool &grow)
         if (grow) {
             current->setBalance(-1);
         }
+        if (!(current->getBalance() <= 1 && current->getBalance() >= -1)) {
+            choseRotation(current, dad, grow);
+        }
+        if (current->getBalance() == 0 && grow) {
+            grow = false;
+        }
     } else if (newKnot.getElement().getKey() > current->getElement().getKey()) {
         KnotAVL *pointer = current->getRight();
         addKnot(newKnot, pointer, current, grow);
         if (grow) {
             current->setBalance(1);
         }
+        if (!(current->getBalance() <= 1 && current->getBalance() >= -1)) {
+            choseRotation(current, dad, grow);
+        }
+        if (current->getBalance() == 0 && grow) {
+            grow = false;
+        }
     } else {
-        cout << "\n\n./BST::insert(int frequency, string item) !ERROR! => KnotBST's key already inserts in the BST\n\n";
-    }
-    if (!(current->getBalance() <= 1 && current->getBalance() >= -1)) {
-        choseRotation(current, dad, grow);
+        cout << "\n\n./AVL::insert(int frequency, string item) !ERROR! => KnotAVL's key already inserts in the AVL\n\n";
     }
 }
 
@@ -172,66 +178,66 @@ void AVL::deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease) {
     }
 }
 
-void AVL::preOrder(KnotAVL *current) {
+void AVL::preOrder(KnotAVL *current, string &output) {
     if (current != NULL) {
-        cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
-        preOrder(current->getLeft());
-        preOrder(current->getRight());
+        output = output + current->getElement().getValue() + ", ";
+        preOrder(current->getLeft(), output);
+        preOrder(current->getRight(), output);
     }
 }
 
-void AVL::centralOrder(KnotAVL *current) {
+void AVL::centralOrder(KnotAVL *current, string &output) {
     if (current != NULL) {
-        centralOrder(current->getLeft());
-        cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
-        centralOrder(current->getRight());
+        centralOrder(current->getLeft(), output);
+        output = output + current->getElement().getValue() + ", ";
+        centralOrder(current->getRight(), output);
     }
 }
 
-void AVL::posOrder(KnotAVL *current) {
+void AVL::posOrder(KnotAVL *current, string &output) {
     if (current != NULL) {
-        posOrder(current->getLeft());
-        posOrder(current->getRight());
-        cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
+        posOrder(current->getLeft(), output);
+        posOrder(current->getRight(), output);
+        output = output + current->getElement().getValue() + ", ";
     }
 }
 
-void AVL::leftRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble) {
+void AVL::leftRotation(KnotAVL *&current, KnotAVL *&dad) {
     KnotAVL *newDad = current->getRight();
     current->setRight(newDad->getLeft());
     newDad->setLeft(current);
     if (dad == NULL) {
         current = newDad;
-    } else if (gotDouble) {
+    } else if (current == dad->getLeft()) {
         dad->setLeft(newDad);
-    } else {
-        dad->setLeft(newDad);
+    } else if (current == dad->getRight()) {
+        dad->setRight(newDad);
     }
 }
 
-void AVL::rightRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble) {
+void AVL::rightRotation(KnotAVL *&current, KnotAVL *&dad) {
     KnotAVL *newDad = current->getLeft();
     current->setLeft(newDad->getRight());
     newDad->setRight(current);
     if (dad == NULL) {
         current = newDad;
-    } else if (gotDouble) {
+    } else if (current == dad->getLeft()) {
         dad->setLeft(newDad);
-    } else {
+    } else if (current == dad->getRight()) {
         dad->setRight(newDad);
     }
 }
 
 void AVL::doubleLeftRotation(KnotAVL *&current, KnotAVL *&dad) {
     KnotAVL *aux = current->getLeft();
-    leftRotation(aux, current, false);
-    rightRotation(current, dad, true);
+    leftRotation(aux, current);
+    rightRotation(current, dad);
 }
 
 void AVL::doubleRightRotation(KnotAVL *&current, KnotAVL *&dad) {
     KnotAVL *aux = current->getRight();
-    rightRotation(aux, current, false);
-    leftRotation(current, dad, true);
+    rightRotation(aux, current);
+    leftRotation(current, dad);
 }
 
 void AVL::choseRotation(KnotAVL *&current, KnotAVL *&dad, bool &grow) {
@@ -241,11 +247,11 @@ void AVL::choseRotation(KnotAVL *&current, KnotAVL *&dad, bool &grow) {
         if (sun->getBalance() == -1) {     // simples
             current->setBalance(2);
             sun->setBalance(1);
-            rightRotation(current, dad, false);
+            rightRotation(current, dad);
         } else if (sun->getBalance() == 0) {     // simples
             current->setBalance(1);
             sun->setBalance(1);
-            rightRotation(current, dad, false);
+            rightRotation(current, dad);
         } else if (sun->getBalance() == 1) {     // dupla
             grandSun = sun->getRight();
             if (grandSun->getBalance() == -1) {
@@ -268,11 +274,11 @@ void AVL::choseRotation(KnotAVL *&current, KnotAVL *&dad, bool &grow) {
         if (sun->getBalance() == 1) {     // simples
             current->setBalance(-2);
             sun->setBalance(-1);
-            leftRotation(current, dad, false);
+            leftRotation(current, dad);
         } else if (sun->getBalance() == 0) {     // simples
             current->setBalance(-1);
             sun->setBalance(-1);
-            leftRotation(current, dad, false);
+            leftRotation(current, dad);
         } else if (sun->getBalance() == -1) {     // dupla
             grandSun = sun->getLeft();
             if (grandSun->getBalance() == -1) {

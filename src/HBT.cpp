@@ -5,11 +5,11 @@ HBT::HBT() {
     this->size = 0;
 }
 
-HBT::HBT(unordered_map<string, int> *hash) {
+HBT::HBT(unordered_map<string, int> &hash) {
     this->root = NULL;
     this->size = 0;
     createList(hash);
-    hash->clear();
+    hash.clear();
     makeTree();
 }
 
@@ -35,8 +35,12 @@ bool HBT::isEmpty() {
     return (this->root == NULL && this->size == 0);
 }
 
-void HBT::createList(unordered_map<string, int> *hash) {
-    for (const auto &elemento : (*hash)) {
+bool HBT::isLeaf(KnotHBT *current) {
+    return (current->getLeft() == NULL && current->getRight() == NULL && current->getNext() == 0);
+}
+
+void HBT::createList(unordered_map<string, int> &hash) {
+    for (const auto &elemento : hash) {
         KnotHBT *newElement = new KnotHBT(elemento.second, elemento.first);
         insertList(newElement);
     }
@@ -92,26 +96,32 @@ void HBT::makeTree() {
     }
 }
 
-void HBT::preOrder(KnotHBT *current) {
+void HBT::preOrder(KnotHBT *current, string &output) {
     if (current != NULL) {
-        cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
-        preOrder(current->getLeft());
-        preOrder(current->getRight());
+        if (isLeaf(current)) {
+            output = output + current->getElement().getValue() + ", ";
+        }
+        preOrder(current->getLeft(), output);
+        preOrder(current->getRight(), output);
     }
 }
 
-void HBT::centralOrder(KnotHBT *current) {
+void HBT::centralOrder(KnotHBT *current, string &output) {
     if (current != NULL) {
-        centralOrder(current->getLeft());
-        cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
-        centralOrder(current->getRight());
+        centralOrder(current->getLeft(), output);
+        if (isLeaf(current)) {
+            output = output + current->getElement().getValue() + ", ";
+        }
+        centralOrder(current->getRight(), output);
     }
 }
 
-void HBT::posOrder(KnotHBT *current) {
+void HBT::posOrder(KnotHBT *current, string &output) {
     if (current != NULL) {
-        posOrder(current->getLeft());
-        posOrder(current->getRight());
-        cout << current->getElement().getKey() << " / " << current->getElement().getValue() << " / " << current->getElement().getFrequency() << endl;
+        posOrder(current->getLeft(), output);
+        posOrder(current->getRight(), output);
+        if (isLeaf(current)) {
+            output = output + current->getElement().getValue() + ", ";
+        }
     }
 }

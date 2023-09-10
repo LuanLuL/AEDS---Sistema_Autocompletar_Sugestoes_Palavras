@@ -7,7 +7,6 @@ ConnectionFactory::ConnectionFactory() {
         this->stopWords.push_back(stopWord);
     }
     closeConnection(fileStopWords);
-    remove("dataset/output.txt");
 }
 
 ConnectionFactory::~ConnectionFactory() {/*...*/ }
@@ -44,7 +43,7 @@ void ConnectionFactory::closeConnection(ofstream &dataset) {
 
 ofstream ConnectionFactory::getConnectionOf(string path) {
     try {
-        ofstream dataset("dataset/" + path, ios::app);
+        ofstream dataset("dataset/" + path);
         if (!dataset) {
             throw "./ConnectionFactory::getConnectionOf(string path) !ERROR! => path didn't find on directory";
         }
@@ -155,10 +154,31 @@ bool ConnectionFactory::isThereWord(ifstream &dataset, string word) {
     return false;
 }
 
-void ConnectionFactory::tidyOutput(unordered_map<string, int> *hash, short int size, short int) {
-    ofstream fileOut = getConnectionOf("output.txt");
-    HBT huffmanTree(hash);
+string ConnectionFactory::tidyOutput(unordered_map<string, int> &hash) {
     string output = "";
-    fileOut << output;
-    closeConnection(fileOut);
+    short int aux = 0;
+    if (aux == 0) {
+        BST binaryTree(hash);
+        binaryTree.preOrder(binaryTree.getRoot(), output);
+        aux++;
+        output.pop_back();
+        output.back() = ']';
+    }
+    output = output + "\t|\t[";
+    if (aux == 1) {
+        AVL avlTree(hash);
+        avlTree.preOrder(avlTree.getRoot(), output);
+        aux++;
+        output.pop_back();
+        output.back() = ']';
+    }
+    output = output + "\t|\t[";
+    if (aux == 2) {
+        HBT huffmanTree(hash);
+        huffmanTree.preOrder(huffmanTree.getRoot(), output);
+        aux++;
+        output.pop_back();
+        output.back() = ']';
+    }
+    return output;
 }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstddef>
+#include <unordered_map> 
 #include "KnotAVL.hpp"
 #include "Word.hpp"
 using namespace std;
@@ -12,12 +13,12 @@ private:
     KnotAVL *root;
 public:
     AVL();
+    AVL(unordered_map<string, int> &hash);
     ~AVL();
     KnotAVL *getRoot();
     void setRoot(KnotAVL *newRoot);
     void deleteBTS(KnotAVL *current);
     bool isEmpty();
-    bool isFull();
     void insert(KnotAVL newKnot);
     void addKnot(KnotAVL newKnot, KnotAVL *&current, KnotAVL *&dad, bool &grow);
     KnotAVL *search(string item);
@@ -25,11 +26,11 @@ public:
     void remove(string item);
     Word getNextKnotAVL(KnotAVL *aux);
     void deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease);
-    void preOrder(KnotAVL *current);
-    void centralOrder(KnotAVL *current);
-    void posOrder(KnotAVL *current);
-    void leftRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble);
-    void rightRotation(KnotAVL *&current, KnotAVL *&dad, bool gotDouble);
+    void preOrder(KnotAVL *current, string &output);
+    void centralOrder(KnotAVL *current, string &output);
+    void posOrder(KnotAVL *current, string &output);
+    void leftRotation(KnotAVL *&current, KnotAVL *&dad);
+    void rightRotation(KnotAVL *&current, KnotAVL *&dad);
     void doubleLeftRotation(KnotAVL *&current, KnotAVL *&dad);
     void doubleRightRotation(KnotAVL *&current, KnotAVL *&dad);
     void choseRotation(KnotAVL *&current, KnotAVL *&dad, bool &grow);

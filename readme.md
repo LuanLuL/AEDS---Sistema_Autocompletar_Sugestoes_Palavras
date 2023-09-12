@@ -86,6 +86,33 @@
 </section>
 <section>
         <h2>🔠 Objeto Word</h2>
+        <p>
+            Diferentemente das árvores comuns, nas quais seus nós normalmente contêm apenas um valor, um filho esquerdo e um filho direito, este projeto adota uma abordagem distinta. Em cada nó da árvore, o valor é representado por objetos pertencentes à classe <i><strong>"Word"</strong></i>, os quais possuem uma estrutura definida, conforme ilustrado na Figura 1:
+        </p>
+        <p align="center">
+            <img src="img/classWord.png" />
+            <br><br><strong>Figura 1:</strong> Estrutura da classe Word
+        </p>
+        <p>
+            Com um atributo <i><strong>"key: int"</strong></i> incorporado, a construção da árvore é orientada pelas chaves dos objetos, promovendo uma organização hierárquica que considera o valor da <i>key</i> contida em cada palavra. Esta estratégia foi implementada com o propósito de prevenir a ocorrência de nós duplicados com valores idênticos na árvore. É possível observar esse atributo é calculado no método <strong><i>"setKey()"</i></strong> apresentado logo abaixo.
+        </p>
+        <pre><code>
+void Word::setKey(string parameter) {
+    this->key = 0;
+    short int multiply = 1;
+    for (char &caracter : parameter) {
+        short int ascii = static_cast: short int(caracter);
+        this->key = this->key + (ascii * multiply);
+        multiply++;
+    }
+}
+        </code></pre>
+        <p>
+            O método setKey desempenha um papel crucial na definição da chave (key) para uma instância da classe "Word." Sendo que o processo de construção da chave se baseia na análise do <strong><i>"value: string"</strong></i> fornecida como parâmetro. A cada iteração do loop, o método calcula um valor ponderado para cada caractere, multiplicando seu valor ASCII pelo índice da posição na string. Esses valores ponderados são então somados para formar a chave final.
+        </p>
+        <p>
+             A cuidadosa consideração de cada caractere e a aplicação do índice de posição garantem a unicidade da chave, contribuindo para a precisão e eficácia do método na  para a organização dos elementos presente nas árvores binárias.
+        </p>
 </section>
 <section>
     <h2>📩 Saida de dados</h2>

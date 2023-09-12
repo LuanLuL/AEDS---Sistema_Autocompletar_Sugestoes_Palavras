@@ -96,30 +96,30 @@ void HBT::makeTree() {
     }
 }
 
-void HBT::preOrder(KnotHBT *current, string &output) {
+void HBT::preOrder(KnotHBT *current, string &output, string huffmanCodification) {
     if (current != NULL) {
         if (isLeaf(current)) {
-            output = output + current->getElement().getValue() + ", ";
+            output = output + current->getElement().getValue() + "-" + huffmanCodification + ", ";
         }
-        preOrder(current->getLeft(), output);
-        preOrder(current->getRight(), output);
+        preOrder(current->getLeft(), output, (huffmanCodification + "0"));
+        preOrder(current->getRight(), output, (huffmanCodification + "1"));
     }
 }
 
-void HBT::centralOrder(KnotHBT *current, string &output) {
+void HBT::centralOrder(KnotHBT *current, string &output, string huffmanCodification) {
     if (current != NULL) {
-        centralOrder(current->getLeft(), output);
+        centralOrder(current->getLeft(), output, (huffmanCodification + "0"));
         if (isLeaf(current)) {
             output = output + current->getElement().getValue() + ", ";
         }
-        centralOrder(current->getRight(), output);
+        centralOrder(current->getRight(), output, (huffmanCodification + "1"));
     }
 }
 
-void HBT::posOrder(KnotHBT *current, string &output) {
+void HBT::posOrder(KnotHBT *current, string &output, string huffmanCodification) {
     if (current != NULL) {
-        posOrder(current->getLeft(), output);
-        posOrder(current->getRight(), output);
+        posOrder(current->getLeft(), output, (huffmanCodification + "0"));
+        posOrder(current->getRight(), output, (huffmanCodification + "1"));
         if (isLeaf(current)) {
             output = output + current->getElement().getValue() + ", ";
         }

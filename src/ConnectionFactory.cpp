@@ -175,7 +175,7 @@ string ConnectionFactory::tidyOutput(unordered_map<string, int> &hash) {
     output = output + "\t|\t[";
     if (aux == 2) {
         HBT huffmanTree(hash);
-        huffmanTree.preOrder(huffmanTree.getRoot(), output);
+        huffmanTree.preOrder(huffmanTree.getRoot(), output, "");
         aux++;
         output.pop_back();
         output.back() = ']';

@@ -117,7 +117,30 @@ void Word::setKey(string parameter) {
 <section>
     <h2>📩 Saida de dados</h2>
     <p>
-        saida
+        O programa de computador, cujo código-fonte se encontra neste repositório, tem como finalidade apresentar potenciais sugestões que estejam associadas a uma palavra de pesquisa, em um conjunto de textos de entrada. Para atender a esse requisito, o programa gera um arquivo de saída denominado "output.txt". Este documento segue um formato específico, no qual cada linha apresenta informações da seguinte maneira:
+    </p>
+    <ul>
+        <li>
+            <strong>INPUT "n"</strong>: Esta seção identifica a entrada específica que está sendo processada, onde "n" é identificador único associado a essa entrada. Isso auxilia no rastreamento e na referência às origens dos resultados;
+        </li>
+        <li>
+            <strong>palavra pesquisada</strong>: Indica a palavra que está sendo pesquisada nos textos. Cada linha de saída corresponde a palavra pesquisada em um texto específico.
+        </li>
+        <li>
+            <strong>frequência da palavra pesquisada</strong>: Esta parte indica quantas vezes a palavra pesquisada ocorre no texto em que foi encontrada. Quando a palavra não está presente no texto, a frequência é definida como 0.
+        </li>
+        <li>
+            <strong>print pre-ordem da árvore binária de busca</strong>: Quando aplicável, esta parte mostra a representação em pré-ordem da árvore binária de busca que contém as "<i>top K</i>" palavras mais frequentes do texto em questão.
+        </li>
+        <li>
+            <strong>print pre-ordem da árvore AVL</strong>: Similarmente à árvore binária de busca, esta seção exibe a representação em pré-ordem da árvore AVL contendo as "<i>top K</i>" palavras mais frequentes do texto.
+        </li>
+        <li>
+             <strong>print pre-ordem da árvore de Huffman (elemento-código de Huffman)</strong>: Quando apropriado, é mostrada a representação em pré-ordem da árvore de Huffman, incluindo códigos de Huffman para as "<i>top K</i>" palavras mais frequentes do texto.
+        </li>
+    </ul>
+    <p>
+        Lembrando que em caso de a palavra não ser encontrada no input específico, a impressão das árvores não é necessária, e a saída é simplificada, incluindo apenas informações sobre a entrada, a palavra pesquisada e a frequência igual a 0.
     </p>
 </section>
 <section>

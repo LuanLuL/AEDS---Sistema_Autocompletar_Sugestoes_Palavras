@@ -111,7 +111,7 @@ void Word::setKey(string parameter) {
             O método setKey desempenha um papel crucial na definição da chave (key) para uma instância da classe "Word." Sendo que o processo de construção da chave se baseia na análise do <strong><i>"value: string"</strong></i> fornecida como parâmetro. A cada iteração do loop, o método calcula um valor ponderado para cada caractere, multiplicando seu valor ASCII pelo índice da posição na string. Esses valores ponderados são então somados para formar a chave final.
         </p>
         <p>
-             A cuidadosa consideração de cada caractere e a aplicação do índice de posição garantem a unicidade da chave, contribuindo para a precisão e eficácia do método na  para a organização dos elementos presente nas árvores binárias.
+             A cuidadosa consideração de cada caractere e a aplicação do índice de posição garantem a unicidade da chave, contribuindo para a precisão e eficácia do método na organização dos elementos presente nas árvores binárias.
         </p>
 </section>
 <section>

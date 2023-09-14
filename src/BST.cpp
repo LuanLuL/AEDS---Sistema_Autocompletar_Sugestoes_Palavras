@@ -13,7 +13,7 @@ BST::BST(unordered_map<string, int> &hash) {
 }
 
 BST::~BST() {
-  deleteBTS(this->root);
+  removeAll();
 }
 
 KnotBST *BST::getRoot() {
@@ -22,15 +22,6 @@ KnotBST *BST::getRoot() {
 
 void BST::setRoot(KnotBST *newRoot) {
   this->root = newRoot;
-}
-
-void BST::deleteBTS(KnotBST *current) {
-  if (current != NULL) {
-    deleteBTS(current->getLeft());
-    deleteBTS(current->getRight());
-    current = NULL;
-    delete(current);
-  }
 }
 
 bool BST::isEmpty() {
@@ -58,8 +49,6 @@ void BST::insert(KnotBST item) {
         } else {
           aux = aux->getRight();
         }
-      } else {
-        throw "./BST::insert(int frequency, string item) !ERROR! => KnotBST's key already inserts in the BST";
       }
     }
   }
@@ -100,7 +89,15 @@ void BST::remove(string item) {
   searchToRemove(lookFor, this->root, dad);
 }
 
-Word BST::getNextKnotBST(KnotBST *aux) {
+void BST::removeAll() {
+  KnotBST *dad = NULL;
+  while (this->root != NULL) {
+    Word lookFor(this->root->getElement().getValue());
+    searchToRemove(lookFor, this->root, dad);
+  }
+}
+
+Word BST::getNextLeft(KnotBST *aux) {
   aux = aux->getLeft();
   while (aux->getRight() != NULL) {
     aux = aux->getRight();
@@ -108,11 +105,29 @@ Word BST::getNextKnotBST(KnotBST *aux) {
   return aux->getElement();
 }
 
+Word BST::getNextRight(KnotBST *aux) {
+  aux = aux->getRight();
+  while (aux->getLeft() != NULL) {
+    aux = aux->getLeft();
+  }
+  return aux->getElement();
+}
+
 void BST::deleteKnotBST(KnotBST *&current, KnotBST *&dad) {
   if (dad == NULL) {
-    current->setElement(getNextKnotBST(current));
-    KnotBST *temporary = current->getLeft();
-    searchToRemove(current->getElement(), temporary, this->root);
+    KnotBST *temporary;
+    if (current->getLeft() == NULL && current->getRight() == NULL) {
+      delete(this->root);
+      this->root = NULL;
+    } else if (current->getLeft() == NULL) {
+      current->setElement(getNextRight(current));
+      temporary = current->getRight();
+      searchToRemove(current->getElement(), temporary, this->root);
+    } else {
+      current->setElement(getNextLeft(current));
+      temporary = current->getLeft();
+      searchToRemove(current->getElement(), temporary, this->root);
+    }
   } else if (current->getLeft() == NULL) {
     if (current == dad->getLeft()) {
       dad->setLeft(current->getRight());
@@ -130,7 +145,7 @@ void BST::deleteKnotBST(KnotBST *&current, KnotBST *&dad) {
       delete(current);
     }
   } else {
-    current->setElement(getNextKnotBST(current));
+    current->setElement(getNextLeft(current));
     KnotBST *temporary = current->getLeft();
     searchToRemove(current->getElement(), temporary, current);
   }

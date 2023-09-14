@@ -117,7 +117,7 @@ void Word::setKey(string parameter) {
 <section>
     <h2>📩 Saida de dados</h2>
     <p>
-        O programa de computador, cujo código-fonte se encontra neste repositório, tem como finalidade apresentar potenciais sugestões que estejam associadas a uma palavra de pesquisa, em um conjunto de textos de entrada. Para atender a esse requisito, o programa gera um arquivo de saída denominado "output.txt". Este documento segue um formato específico, no qual cada linha apresenta informações da seguinte maneira:
+        O programa de computador, cujo código-fonte se encontra neste repositório, tem como finalidade apresentar potenciais sugestões que estejam associadas a uma palavra de pesquisa, em um conjunto de textos de entrada. Para atender a esse requisito, o programa gera um arquivo de saída denominado "output.txt". Este documento segue um formato específico, no qual cada linha apresenta, respectivamente e separado por "<i>|</i>", informações da seguinte maneira:
     </p>
     <ul>
         <li>

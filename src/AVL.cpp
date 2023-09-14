@@ -13,7 +13,7 @@ AVL::AVL(unordered_map<string, int> &hash) {
 }
 
 AVL::~AVL() {
-    deleteBTS(this->root);
+    removeAll();
 }
 
 KnotAVL *AVL::getRoot() {
@@ -22,15 +22,6 @@ KnotAVL *AVL::getRoot() {
 
 void AVL::setRoot(KnotAVL *newRoot) {
     this->root = newRoot;
-}
-
-void AVL::deleteBTS(KnotAVL *current) {
-    if (current != NULL) {
-        deleteBTS(current->getLeft());
-        deleteBTS(current->getRight());
-        current = nullptr;
-        delete(current);
-    }
 }
 
 bool AVL::isEmpty() {
@@ -101,7 +92,7 @@ KnotAVL *AVL::search(string item) {
 }
 
 void AVL::searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &decrease) {
-    if (current != NULL) {
+    if (current != NULL && current != this->root) {
         if (lookFor.getKey() < current->getElement().getKey()) {
             KnotAVL *temporary = current->getLeft();
             searchToRemove(lookFor, temporary, current, decrease);
@@ -120,8 +111,24 @@ void AVL::searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &d
         if (current->getBalance() > 1 || current->getBalance() < -1) {
             choseRotation(current, dad, decrease);
         }
-        if (current->getBalance() != 0) {
+        if (decrease && current->getBalance() != 0) {
             decrease = false;
+        }
+    } else {
+        if (lookFor.getKey() < current->getElement().getKey()) {
+            KnotAVL *temporary = current->getLeft();
+            searchToRemove(lookFor, temporary, current, decrease);
+            if (decrease) {
+                current->setBalance(1);
+            }
+        } else if (lookFor.getKey() > current->getElement().getKey()) {
+            KnotAVL *temporary = current->getRight();
+            searchToRemove(lookFor, temporary, current, decrease);
+            if (decrease) {
+                current->setBalance(-1);
+            }
+        } else {
+            deleteKnotAVL(current, dad, decrease);
         }
     }
 }
@@ -133,7 +140,16 @@ void AVL::remove(string item) {
     searchToRemove(lookFor, this->root, dad, decrease);
 }
 
-Word AVL::getNextKnotAVL(KnotAVL *aux) {
+void AVL::removeAll() {
+    KnotAVL *dad = NULL;
+    while (this->root != NULL) {
+        Word lookFor(this->root->getElement().getValue());
+        bool decrease;
+        searchToRemove(lookFor, this->root, dad, decrease);
+    }
+}
+
+Word AVL::getNextLeft(KnotAVL *aux) {
     aux = aux->getLeft();
     while (aux->getRight() != NULL) {
         aux = aux->getRight();
@@ -141,11 +157,35 @@ Word AVL::getNextKnotAVL(KnotAVL *aux) {
     return aux->getElement();
 }
 
+Word AVL::getNextRight(KnotAVL *aux) {
+    aux = aux->getRight();
+    while (aux->getLeft() != NULL) {
+        aux = aux->getLeft();
+    }
+    return aux->getElement();
+}
+
 void AVL::deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease) {
     if (dad == NULL) {
-        current->setElement(getNextKnotAVL(current));
-        KnotAVL *temporary = current->getLeft();
-        searchToRemove(current->getElement(), temporary, this->root, decrease);
+        KnotAVL *temporary;
+        if (current->getLeft() == NULL && current->getRight() == NULL) {
+            delete(this->root);
+            this->root = NULL;
+        } else if (current->getLeft() == NULL) {
+            current->setElement(getNextRight(current));
+            temporary = current->getRight();
+            searchToRemove(current->getElement(), temporary, this->root, decrease);
+            if (decrease) {
+                current->setBalance(-1);
+            }
+        } else {
+            current->setElement(getNextLeft(current));
+            temporary = current->getLeft();
+            searchToRemove(current->getElement(), temporary, this->root, decrease);
+            if (decrease) {
+                current->setBalance(1);
+            }
+        }
     } else if (current->getLeft() == NULL) {
         if (current == dad->getLeft()) {
             dad->setLeft(current->getRight());
@@ -169,7 +209,7 @@ void AVL::deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease) {
         }
         decrease = true;
     } else {
-        current->setElement(getNextKnotAVL(current));
+        current->setElement(getNextLeft(current));
         KnotAVL *temporary = current->getLeft();
         searchToRemove(current->getElement(), temporary, current, decrease);
         if (decrease) {

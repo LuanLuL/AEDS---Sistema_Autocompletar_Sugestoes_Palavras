@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <ctime>
 #include "Word.hpp"
 #include "AVL.hpp"
 #include "BST.hpp"

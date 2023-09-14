@@ -156,29 +156,19 @@ bool ConnectionFactory::isThereWord(ifstream &dataset, string word) {
 
 string ConnectionFactory::tidyOutput(unordered_map<string, int> &hash) {
     string output = "";
-    short int aux = 0;
-    if (aux == 0) {
-        BST binaryTree(hash);
-        binaryTree.preOrder(binaryTree.getRoot(), output);
-        aux++;
-        output.pop_back();
-        output.back() = ']';
-    }
-    output = output + "\t|\t[";
-    if (aux == 1) {
-        AVL avlTree(hash);
-        avlTree.preOrder(avlTree.getRoot(), output);
-        aux++;
-        output.pop_back();
-        output.back() = ']';
-    }
-    output = output + "\t|\t[";
-    if (aux == 2) {
-        HBT huffmanTree(hash);
-        huffmanTree.preOrder(huffmanTree.getRoot(), output, "");
-        aux++;
-        output.pop_back();
-        output.back() = ']';
-    }
+    BST binaryTree(hash);
+    binaryTree.preOrder(binaryTree.getRoot(), output);
+    output.pop_back();
+    output.back() = ']';
+    // output = output + "\t|\t[";
+    // AVL avlTree(hash);
+    // avlTree.preOrder(avlTree.getRoot(), output);
+    // output.pop_back();
+    // output.back() = ']';
+    // output = output + "\t|\t[";
+    // HBT huffmanTree(hash);
+    // huffmanTree.preOrder(huffmanTree.getRoot(), output, "");
+    // output.pop_back();
+    // output.back() = ']';
     return output;
 }

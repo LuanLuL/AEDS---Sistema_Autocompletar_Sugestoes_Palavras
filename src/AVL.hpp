@@ -17,14 +17,15 @@ public:
     ~AVL();
     KnotAVL *getRoot();
     void setRoot(KnotAVL *newRoot);
-    void deleteBTS(KnotAVL *current);
     bool isEmpty();
     void insert(KnotAVL newKnot);
     void addKnot(KnotAVL newKnot, KnotAVL *&current, KnotAVL *&dad, bool &grow);
     KnotAVL *search(string item);
     void searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &decrease);
     void remove(string item);
-    Word getNextKnotAVL(KnotAVL *aux);
+    void removeAll();
+    Word getNextLeft(KnotAVL *aux);
+    Word getNextRight(KnotAVL *aux);
     void deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease);
     void preOrder(KnotAVL *current, string &output);
     void centralOrder(KnotAVL *current, string &output);

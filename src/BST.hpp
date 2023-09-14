@@ -17,13 +17,14 @@ public:
 	~BST();
 	KnotBST *getRoot();
 	void setRoot(KnotBST *newRoot);
-	void deleteBTS(KnotBST *current);
 	bool isEmpty();
 	void insert(KnotBST item);
 	KnotBST *search(string item);
 	void searchToRemove(Word lookFor, KnotBST *&current, KnotBST *&dad);
 	void remove(string item);
-	Word getNextKnotBST(KnotBST *aux);
+	void removeAll();
+	Word getNextLeft(KnotBST *aux);
+	Word getNextRight(KnotBST *aux);
 	void deleteKnotBST(KnotBST *&current, KnotBST *&dad);
 	void preOrder(KnotBST *current, string &output);
 	void centralOrder(KnotBST *current, string &output);

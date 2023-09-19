@@ -23,7 +23,8 @@ public:
     KnotAVL *search(string item);
     void searchToRemove(Word lookFor, KnotAVL *&current, KnotAVL *&dad, bool &decrease);
     void remove(string item);
-    void removeAll();
+    void removeAll(KnotAVL *current);
+    void removeTree();
     Word getNextLeft(KnotAVL *aux);
     Word getNextRight(KnotAVL *aux);
     void deleteKnotAVL(KnotAVL *&current, KnotAVL *&dad, bool &decrease);

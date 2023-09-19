@@ -13,7 +13,7 @@ AVL::AVL(unordered_map<string, int> &hash) {
 }
 
 AVL::~AVL() {
-    removeAll();
+    removeTree();
 }
 
 KnotAVL *AVL::getRoot() {
@@ -140,13 +140,18 @@ void AVL::remove(string item) {
     searchToRemove(lookFor, this->root, dad, decrease);
 }
 
-void AVL::removeAll() {
-    KnotAVL *dad = NULL;
-    while (this->root != NULL) {
-        Word lookFor(this->root->getElement().getValue());
-        bool decrease;
-        searchToRemove(lookFor, this->root, dad, decrease);
+void AVL::removeAll(KnotAVL *current) {
+    if (current != NULL) {
+        removeAll(current->getLeft());
+        removeAll(current->getRight());
+        delete(current);
+        current = NULL;
     }
+}
+
+void AVL::removeTree() {
+    removeAll(this->root);
+    this->root = NULL;
 }
 
 Word AVL::getNextLeft(KnotAVL *aux) {

@@ -27,9 +27,12 @@ public:
     void insertList(KnotHBT *&item);
     KnotHBT *removeList();
     void makeTree();
+    void removeAll(KnotHBT *current);
+    void removeTree();
     void preOrder(KnotHBT *current, string &output, string huffmanCodification);
     void centralOrder(KnotHBT *current, string &output, string huffmanCodification);
     void posOrder(KnotHBT *current, string &output, string huffmanCodification);
+
 };
 
 #endif

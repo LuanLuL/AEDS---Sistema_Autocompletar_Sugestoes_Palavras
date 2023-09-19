@@ -13,7 +13,7 @@ BST::BST(unordered_map<string, int> &hash) {
 }
 
 BST::~BST() {
-  removeAll();
+  removeTree();
 }
 
 KnotBST *BST::getRoot() {
@@ -89,12 +89,18 @@ void BST::remove(string item) {
   searchToRemove(lookFor, this->root, dad);
 }
 
-void BST::removeAll() {
-  KnotBST *dad = NULL;
-  while (this->root != NULL) {
-    Word lookFor(this->root->getElement().getValue());
-    searchToRemove(lookFor, this->root, dad);
+void BST::removeAll(KnotBST *current) {
+  if (current != NULL) {
+    removeAll(current->getLeft());
+    removeAll(current->getRight());
+    delete(current);
+    current = NULL;
   }
+}
+
+void BST::removeTree() {
+  removeAll(this->root);
+  this->root = NULL;
 }
 
 Word BST::getNextLeft(KnotBST *aux) {

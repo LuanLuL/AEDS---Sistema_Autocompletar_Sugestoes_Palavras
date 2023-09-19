@@ -33,13 +33,8 @@ int Word::getKey() {
 }
 
 void Word::setKey(string parameter) {
-    this->key = 0;
-    short int multiply = 1;
-    for (char &caracter : parameter) {
-        short int ascii = static_cast<short int>(caracter);
-        this->key = this->key + (ascii * multiply);
-        multiply++;
-    }
+    hash<string> hasher;
+    this->key = hasher(parameter);
 }
 
 string Word::getValue() {

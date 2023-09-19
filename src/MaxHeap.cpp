@@ -61,19 +61,21 @@ void MaxHeap::insert(string text, int frequency) {
     fixUp(this->wordsNumber - 1);
 }
 
-void MaxHeap::remove() {
+bool MaxHeap::remove(short int file) {
     try {
         if (isEmpty()) {
-            throw "./MaxHeap::insert(string text, int frequency) !ERROR! => The heap is empty";
+            throw std::runtime_error("Aviso: O número de palavras TOP K excede a quantidade de palavras distintas no INPUT " + to_string(file));
         }
         pair<string, int> aux;
         this->heap[0] = this->heap[this->wordsNumber - 1];
         this->heap[this->wordsNumber - 1] = aux;
         this->wordsNumber--;
         fixDown(0);
+        return true;
     }
-    catch (const char *msg) {
-        cerr << msg << endl;
+    catch (const runtime_error &e) {
+        cerr << e.what() << endl;
+        return false;
     }
 }
 
@@ -86,16 +88,17 @@ void MaxHeap::print(int K) {
     cout << "\n----------------------------------\n";
 }
 
-unordered_map<string, int> MaxHeap::getWords(short int amount, string searchWord) {
+unordered_map<string, int> MaxHeap::getWords(short int amount, string searchWord, short int file) {
     unordered_map<string, int> returnWords;
-    for (short int i = 0; i < amount; i++) {
+    short int i = 0;
+    do {
         if (this->heap[0].first == searchWord) {
             i--;
         } else {
             returnWords[this->heap[0].first] = this->heap[0].second;
         }
-        remove();
-    }
+        i++;
+    } while (remove(file) && i < amount);
     freeMemory();
     return returnWords;
 }

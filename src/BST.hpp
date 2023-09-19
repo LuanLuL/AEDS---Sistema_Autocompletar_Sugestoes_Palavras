@@ -22,7 +22,8 @@ public:
 	KnotBST *search(string item);
 	void searchToRemove(Word lookFor, KnotBST *&current, KnotBST *&dad);
 	void remove(string item);
-	void removeAll();
+	void removeAll(KnotBST *current);
+	void removeTree();
 	Word getNextLeft(KnotBST *aux);
 	Word getNextRight(KnotBST *aux);
 	void deleteKnotBST(KnotBST *&current, KnotBST *&dad);

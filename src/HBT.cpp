@@ -13,7 +13,9 @@ HBT::HBT(unordered_map<string, int> &hash) {
     makeTree();
 }
 
-HBT::~HBT() {/*...*/ }
+HBT::~HBT() {
+    removeTree();
+}
 
 KnotHBT *HBT::getRoot() {
     return this->root;
@@ -94,6 +96,21 @@ void HBT::makeTree() {
         newELement->setRight(second);
         insertList(newELement);
     }
+}
+
+void HBT::removeAll(KnotHBT *current) {
+    if (current != NULL) {
+        removeAll(current->getLeft());
+        removeAll(current->getRight());
+        delete(current);
+        current = NULL;
+    }
+}
+
+void HBT::removeTree() {
+    removeAll(this->root);
+    this->size = 0;
+    this->root = NULL;
 }
 
 void HBT::preOrder(KnotHBT *current, string &output, string huffmanCodification) {

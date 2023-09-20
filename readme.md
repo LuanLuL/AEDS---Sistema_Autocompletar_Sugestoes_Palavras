@@ -94,19 +94,19 @@
             <br><br><strong>Figura 1:</strong> Estrutura da classe Word
         </p>
         <p>
-            Com um atributo <i><strong>"key: int"</strong></i> incorporado, a construção da árvore é orientada pelas chaves dos objetos, promovendo uma organização hierárquica que considera o valor da <i>key</i> contida em cada palavra. Esta estratégia foi implementada com o propósito de prevenir a ocorrência de nós duplicados com valores idênticos na árvore. É possível observar esse atributo é calculado no método <strong><i>"setKey()"</i></strong> apresentado logo abaixo.
+            Com um atributo <i><strong>"key: int"</strong></i> incorporado, a construção da árvore é orientada pelas chaves dos objetos, promovendo uma organização hierárquica que considera o valor da <i>key</i> contida em cada palavra. Esta estratégia foi implementada com o propósito de prevenir a ocorrência de nós duplicados com valores idênticos na árvore. É possível observar como esse atributo é calculado no método <strong><i>"setKey()"</i></strong> apresentado logo abaixo.
         </p>
         <pre><code>
-void Word::setValue(string newValue) {
-    this->value = newValue;
-    setKey(this->value);
+void Word::setKey(string parameter) {
+    hash<string> hasher;
+    this->key = hasher(parameter);
 }
         </code></pre>
         <p>
-            O método setKey desempenha um papel crucial na definição da chave (key) para uma instância da classe "Word." Sendo que o processo de construção da chave se baseia na análise do <strong><i>"value: string"</strong></i> fornecida como parâmetro. Nesse sentido, com a finalidade de gerar chaves únicas a partir de strings, com a garantia de que essas chaves não sejam duplicadas, foi empregada a utilização de funções de hash.
+            O método setKey desempenha um papel crucial na definição da chave (key) para uma instância da classe "Word." Sendo que o processo de construção da chave se baseia na análise do <strong><i>"value: string"</strong></i> fornecida como parâmetro. Nesse sentido, com a finalidade de gerar chaves únicas a partir de strings e com a garantia de que essas chaves não sejam duplicadas, foi empregada a utilização de funções de hash.
         </p>
         <p>
-No contexto da linguagem de programação C++, estão disponíveis bibliotecas de hash padrão, notadamente a biblioteca <functional>, que provê a classe std::hash. Esta, por sua vez, realiza a criação de chaves únicas com base em strings de modo que as chaves não se repitam, contribuindo para a precisão e eficácia do método na organização dos elementos presente nas árvores binárias.
+No contexto da linguagem de programação C++, estão disponíveis bibliotecas de hash padrão, notadamente a biblioteca "functional", que provê a classe std::hash. Esta, por sua vez, realiza a criação de chaves únicas com base em strings de modo que as chaves não se repitam, contribuindo assim para a precisão e eficácia na organização dos elementos presente nas árvores binárias.
         </p>
 </section>
 <section>

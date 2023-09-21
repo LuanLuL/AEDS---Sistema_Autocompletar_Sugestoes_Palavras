@@ -106,7 +106,7 @@ void Word::setKey(string parameter) {
             O método setKey desempenha um papel crucial na definição da chave (key) para uma instância da classe "Word." Sendo que o processo de construção da chave se baseia na análise do <strong><i>"value: string"</strong></i> fornecida como parâmetro. Nesse sentido, com a finalidade de gerar chaves únicas a partir de strings e com a garantia de que essas chaves não sejam duplicadas, foi empregada a utilização de funções de hash.
         </p>
         <p>
-No contexto da linguagem de programação C++, estão disponíveis bibliotecas de hash padrão, notadamente a biblioteca "functional", que provê a classe std::hash. Esta, por sua vez, realiza a criação de chaves únicas com base em strings de modo que as chaves não se repitam, contribuindo assim para a precisão e eficácia na organização dos elementos presente nas árvores binárias.
+            No contexto da linguagem de programação C++, estão disponíveis bibliotecas de hash padrão, notadamente a biblioteca "functional", que provê a classe std::hash. Esta, por sua vez, realiza a criação de chaves únicas com base em strings de modo que as chaves não se repitam, contribuindo assim para a precisão e eficácia na organização dos elementos presente nas árvores binárias (cplusplus, 2023).
         </p>
 </section>
 <section>
@@ -196,6 +196,12 @@ No contexto da linguagem de programação C++, estão disponíveis bibliotecas d
     </p>
     <p>
         Wikipedia. Binary search tree. Disponível em: <a href="https://en.wikipedia.org/wiki/Binary_search_tree">Wikepedia/Binary_search_tree</a>. Acesso em 10 de setembro de 2023
+    </p>
+    <p>
+        cplusplus.com. C++ Reference - <i><strong>Functional Library</strong></i>. Disponível em: <a href="https://cplusplus.com/reference/functional/?kw=functional">https://cplusplus.com/functional/</a>. Acesso em: 20 set. 2023.
+    </p>
+    <p>
+        cplusplus.com. C++ Reference - <i><strong>Functional Library</strong></i>. Disponível em: <a href="https://cplusplus.com/reference/functional/hash/">https://cplusplus.com/functional/hash</a>. Acesso em: 20 set. 2023.
     </p>
 </section>
 <section>
